@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Devolva.me</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!--Tela de Cadastro-->
+    <string name="objeto">Objeto:</string>
+    <string name="emprestado_para">Emprestado para:</string>
+    <string name="telefone">Telefone:</string>
+    <string name="salvar">Salvar</string>
+    <string name="sair">Sair</string>
+
+    <string name="nome_objeto_hint">Informe o nome do objeto</string>
+    <string name="nome_pessoa_hint">Informe o nome da pessoa</string>
+    <string name="selecionar_lista_de_contatos">Selecionar na Lista de Contatos</string>
+
+    <!--Menu-->
+    <string name="apagar">Apagar</string>
+    <string name="ligar">Ligar</string>
+    <string name="enviar_sms">Enviar SMS</string>
+</resources>
