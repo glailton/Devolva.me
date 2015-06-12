@@ -12,10 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 import br.com.hachitecnologia.devolvame.dao.ObjetoEmprestadoDAO;
 import br.com.hachitecnologia.devolvame.modelo.ObjetoEmprestado;
@@ -34,6 +40,12 @@ public class CadastraObjetoEmprestadoActivity extends Activity {
     private Button botaoSelecionarContato;
     private Button botaoSalvar, botaoSair;
     private ImageView campoFotoObjeto;
+    private CheckBox campoLembreteAtivo;
+    private DatePicker campoLembreteData;
+    private TimePicker campoLembreteHora;
+    private TextView labelLembreteDataHora;
+    private TextView labelLembreteData;
+    private TextView labelLembreteHora;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +59,12 @@ public class CadastraObjetoEmprestadoActivity extends Activity {
         campoNomePessoa = (TextView) findViewById(R.id.cadastro_objeto_campo_pessoa);
         botaoSelecionarContato = (Button) findViewById(R.id.botao_selecionar_contato);
         campoFotoObjeto = (ImageView) findViewById(R.id.foto_objeto);
+        campoLembreteAtivo = (CheckBox) findViewById(R.id.cadastro_objeto_campo_lembrete_ativo);
+        campoLembreteData = (DatePicker) findViewById(R.id.cadastra_objeto_campo_lembrete_data);
+        campoLembreteHora = (TimePicker) findViewById(R.id.cadastro_objeto_campo_lembrete_hora);
+        labelLembreteDataHora = (TextView) findViewById(R.id.cadastro_objeto_label_lembrete_data_hora);
+        labelLembreteData = (TextView) findViewById(R.id.cadastro_objeto_label_lembrete_data);
+        labelLembreteHora = (TextView) findViewById(R.id.cadastro_objeto_label_lembrete_hora);
         botaoSalvar = (Button) findViewById(R.id.button_salvar);
         botaoSair = (Button) findViewById(R.id.button_sair);
 
@@ -62,9 +80,26 @@ public class CadastraObjetoEmprestadoActivity extends Activity {
             botaoSelecionarContato.setVisibility(View.GONE);
             campoNomePessoa.setText(objetoEmprestado.getContato().getNome());
             campoNomePessoa.setVisibility(View.VISIBLE);
+
+            campoLembreteAtivo.setChecked(objetoEmprestado.isLembreteAtivo());
+            Calendar cal = objetoEmprestado.getDalaLembrete();
+            campoLembreteData.updateDate(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH) );
+
+            campoLembreteHora.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
+            campoLembreteHora.setCurrentHour(cal.get(Calendar.MINUTE));
+
+            habilitaDesabilitaCamposLembrete(objetoEmprestado.isLembreteAtivo());
         //    campoPessoa.setText(objetoEmprestado.getContato().getNome());
         //    campoTelefone.setText(objetoEmprestado.getContato().getTelefone());
         }
+
+        campoLembreteAtivo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                habilitaDesabilitaCamposLembrete(isChecked);
+                objetoEmprestado.setLembreteAtivo(isChecked);
+            }
+        });
 
         botaoSelecionarContato.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +123,11 @@ public class CadastraObjetoEmprestadoActivity extends Activity {
             @Override
             public void onClick(View v) {
                 objetoEmprestado.setObjeto(campoObjeto.getText().toString());
+
+                Calendar cal = Calendar.getInstance();
+                cal.set(campoLembreteData.getYear(), campoLembreteData.getMonth(), campoLembreteData.getDayOfMonth(),
+                        campoLembreteHora.getCurrentHour(), campoLembreteHora.getCurrentMinute());
+                objetoEmprestado.setDalaLembrete(cal);
          //       objetoEmprestado.getContato().setNome(campoPessoa.getText().toString());
          //       objetoEmprestado.getContato().setTelefone(campoTelefone.getText().toString());
 
@@ -172,6 +212,22 @@ public class CadastraObjetoEmprestadoActivity extends Activity {
                     }
                 }
                 break;
+        }
+    }
+
+    public void habilitaDesabilitaCamposLembrete(boolean lembreteAtivo){
+        if(lembreteAtivo){
+            campoLembreteData.setVisibility(View.VISIBLE);
+            campoLembreteHora.setVisibility(View.VISIBLE);
+            labelLembreteDataHora.setVisibility(View.VISIBLE);
+            labelLembreteData.setVisibility(View.VISIBLE);
+            labelLembreteHora.setVisibility(View.VISIBLE);
+        }else{
+            campoLembreteData.setVisibility(View.GONE);
+            campoLembreteHora.setVisibility(View.GONE);
+            labelLembreteDataHora.setVisibility(View.GONE);
+            labelLembreteData.setVisibility(View.GONE);
+            labelLembreteHora.setVisibility(View.GONE);
         }
     }
 }

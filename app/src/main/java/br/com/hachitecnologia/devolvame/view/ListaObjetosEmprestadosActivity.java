@@ -20,6 +20,7 @@ import br.com.hachitecnologia.devolvame.adapter.ListaObjetosEmprestadosAdapter;
 import br.com.hachitecnologia.devolvame.dao.ObjetoEmprestadoDAO;
 import br.com.hachitecnologia.devolvame.listener.ListaObjetosEmprestadosListener;
 import br.com.hachitecnologia.devolvame.modelo.ObjetoEmprestado;
+import br.com.hachitecnologia.devolvame.util.Telefonia;
 import devolvame.hachitecnologia.com.br.devolvame.R;
 
 /**
@@ -29,7 +30,7 @@ public class ListaObjetosEmprestadosActivity extends Activity {
 
     private ListView listaObjetosEmpregados;
 
-    //ID da opção "Apagar" no menu de contexto
+    //ID da opï¿½ï¿½o "Apagar" no menu de contexto
     private static final int MENU_APAGAR = Menu.FIRST;
     private static final int MENU_LIGAR = Menu.FIRST + 1;
     private static final int MENU_ENVIAR_SMS = Menu.FIRST + 2;
@@ -106,10 +107,14 @@ public class ListaObjetosEmprestadosActivity extends Activity {
         if (item.getItemId() == MENU_ENVIAR_SMS){
             ObjetoEmprestado objeto = (ObjetoEmprestado) getListaObjetosEmpregados().getItemAtPosition(info.position);
 
-            Intent i = new Intent(Intent.ACTION_SENDTO);
+        /*    Intent i = new Intent(Intent.ACTION_SENDTO);
             i.setData(Uri.parse("sms:" + objeto.getContato().getTelefone()));
-            i.putExtra("sms_body", "Olá! Você pegou emprestado meu objeto \"" + objeto.getObjeto() + "\" e ainda não devolveu. Por favor devolva-me o quanto antes.");
-            startActivity(i);
+            i.putExtra("sms_body", "OlÃ¡! VocÃª pegou emprestado meu objeto \"" + objeto.getObjeto() + "\" e ainda nÃ£o devolveu. Por favor devolva-me o quanto antes.");
+            startActivity(i);*/
+
+            String mensagem = "OlÃ¡! VocÃª pegou emprestado meu objeto \"" + objeto.getObjeto() + "\" e ainda nÃ£o devolveu. Por favor devolva-me o quanto antes.";
+            Telefonia.enviaSMS(objeto.getContato().getTelefone(), mensagem);
+            Toast.makeText(getApplicationContext(), "Lembrete enviado", Toast.LENGTH_LONG).show();
         }
 
         return super.onContextItemSelected(item);

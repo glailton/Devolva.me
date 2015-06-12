@@ -15,6 +15,11 @@
     <string name="nome_pessoa_hint">Informe o nome da pessoa</string>
     <string name="selecionar_lista_de_contatos">Selecionar na Lista de Contatos</string>
 
+    <string name="ativar_lembrete">Ativar Lembrete?</string>
+    <string name="lembrete_data_hora">Data/Hora da notificação</string>
+    <string name="data">Data:</string>
+    <string name="hora">Hora:</string>
+
     <!--Menu-->
     <string name="apagar">Apagar</string>
     <string name="ligar">Ligar</string>

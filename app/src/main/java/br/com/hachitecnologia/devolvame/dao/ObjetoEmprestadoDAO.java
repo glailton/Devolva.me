@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import br.com.hachitecnologia.devolvame.modelo.Contato;
@@ -31,6 +32,8 @@ public class ObjetoEmprestadoDAO {
         values.put("data_emprestimo", System.currentTimeMillis());
         values.put("contato_id", objeto.getContato().getId());
         values.put("foto", objeto.getFoto());
+        values.put("lembrete_ativo", objeto.isLembreteAtivo());
+        values.put("data_lembrete", objeto.getDalaLembrete().getTimeInMillis());
      //   values.put("pessoa", objeto.getContato().getNome());
     //    values.put("telefone", objeto.getContato().getTelefone());
 
@@ -59,6 +62,13 @@ public class ObjetoEmprestadoDAO {
                 Contato contato = Contatos.getContato(contatoID, context);
                 objeto.setContato(contato);
                 objeto.setFoto(c.getBlob(c.getColumnIndex("foto")));
+
+                boolean lembreteAtivo = c.getInt(c.getColumnIndex("lembrete_ativo")) == 1? true : false;
+                objeto.setLembreteAtivo(lembreteAtivo);
+                long dataLembrete = c.getLong(c.getColumnIndex("data_lembrete"));
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(dataLembrete);
+                objeto.setDalaLembrete(cal);
             //    objeto.getContato().setNome(c.getString(c.getColumnIndex("pessoa")));
             //    objeto.getContato().setTelefone(c.getString(c.getColumnIndex("telefone")));
                 objetos.add(objeto);
@@ -79,6 +89,8 @@ public class ObjetoEmprestadoDAO {
      //   values.put("telefone", objeto.getContato().getTelefone());
         values.put("contato_id", objeto.getContato().getId());
         values.put("foto", objeto.getFoto());
+        values.put("lembrete_ativo", objeto.isLembreteAtivo());
+        values.put("data_lembrete", objeto.getDalaLembrete().getTimeInMillis());
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 

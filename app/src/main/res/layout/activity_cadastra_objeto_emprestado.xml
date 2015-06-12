@@ -1,5 +1,11 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
     android:orientation="vertical"
@@ -54,6 +60,58 @@
         android:textSize="15sp"
         android:visibility="gone"/>
 
+    <CheckBox
+        android:id="@+id/cadastro_objeto_campo_lembrete_ativo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ativar_lembrete"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <TextView
+        android:id="@+id/cadastro_objeto_label_lembrete_data_hora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="15dp"
+        android:text="@string/lembrete_data_hora"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/cadastro_objeto_label_lembrete_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="15dp"
+        android:text="@string/data"
+        android:visibility="gone"/>
+
+    <DatePicker
+        android:id="@+id/cadastra_objeto_campo_lembrete_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:calendarViewShown="false"
+        android:visibility="gone">
+    </DatePicker>
+
+    <TextView
+        android:id="@+id/cadastro_objeto_label_lembrete_hora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="15dp"
+        android:text="@string/data"
+        android:visibility="gone"/>
+
+    <TimePicker
+        android:id="@+id/cadastro_objeto_campo_lembrete_hora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone">
+
+    </TimePicker>
+
    <!-- <TextView android:text="@string/emprestado_para"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,3 +156,4 @@
     </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

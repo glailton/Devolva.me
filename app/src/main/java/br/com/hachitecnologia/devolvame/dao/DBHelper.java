@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String NOME_DO_BANCO = "devolva_me";
-    private static final int VERSAO_DO_BANCO = 3;
+    private static final int VERSAO_DO_BANCO = 4;
 
     public DBHelper(Context context){
         super(context, NOME_DO_BANCO, null, VERSAO_DO_BANCO);
@@ -31,6 +31,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 ", contato_id INTEGER NOT NULL" +
                 ", data_emprestimo INTEGER NOT NULL" +
                 ", foto BLOB" +
+                ", lembrente_ativo INTEGER NOT NULL DEFAULT 0" +
+                ", data_lembrete INTEGER" +
                 ");";
         db.execSQL(sql);
 
